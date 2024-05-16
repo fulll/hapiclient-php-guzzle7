@@ -200,9 +200,9 @@ final class HapiClient implements HapiClientInterface
      * Instantiates the HttpRequest depending on the
      * configuration from the given Request.
      * @param $request	RequestInterface	The Request configuration.
-     * @return	The HTTP request.
+     * @return    \GuzzleHttp\Psr7\Request HTTP request.
      */
-    private function createHttpRequest(RequestInterface $request)
+    private function createHttpRequest(RequestInterface $request): \GuzzleHttp\Psr7\Request
     {
         // Handle authentication first
         if ($this->authenticationMethod) {
@@ -241,7 +241,7 @@ final class HapiClient implements HapiClientInterface
             $request->getMethod(),
             $url,
             array_merge($headers, $headersToAdd),
-            $body ? \GuzzleHttp\Psr7\stream_for($body) : null
+            $body ? \GuzzleHttp\Psr7\Utils::streamFor($body) : null
         );
 
         return $httpRequest;
